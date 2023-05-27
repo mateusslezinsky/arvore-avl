@@ -1,9 +1,8 @@
-# AVL tree implementation in Python
-
+# Implementação de árvore AVL em Python
 
 import sys
 
-# Create a tree node
+# Cria um nó para a árvore
 
 
 class TreeNode(object):
@@ -16,10 +15,9 @@ class TreeNode(object):
 
 class AVLTree(object):
 
-    # Function to insert a node
+    # Função para inserir um nó
     def insert_node(self, root, key):
-
-        # Find the correct location and insert the node
+        # Encontra a localização correta e insere
         if not root:
             return TreeNode(key)
         elif key < root.key:
@@ -30,7 +28,7 @@ class AVLTree(object):
         root.height = 1 + max(self.getHeight(root.left),
                               self.getHeight(root.right))
 
-        # Update the balance factor and balance the tree
+        # Atualiza o fator de balanço e balanceia a árvore
         balanceFactor = self.getBalance(root)
         if balanceFactor > 1:
             if key < root.left.key:
@@ -48,10 +46,10 @@ class AVLTree(object):
 
         return root
 
-    # Function to delete a node
+    # Função para excluir um nó
     def delete_node(self, root, key):
 
-        # Find the node to be deleted and remove it
+        # Encontra o nó a ser excluído e o remove
         if not root:
             return root
         elif key < root.key:
@@ -74,13 +72,13 @@ class AVLTree(object):
         if root is None:
             return root
 
-        # Update the balance factor of nodes
+        # Atualiza o fator de equilíbrio dos nós
         root.height = 1 + max(self.getHeight(root.left),
                               self.getHeight(root.right))
 
         balanceFactor = self.getBalance(root)
 
-        # Balance the tree
+        # Balanceia a árvore
         if balanceFactor > 1:
             if self.getBalance(root.left) >= 0:
                 return self.rightRotate(root)
@@ -95,7 +93,7 @@ class AVLTree(object):
                 return self.leftRotate(root)
         return root
 
-    # Function to perform left rotation
+    # Função para rotacionar à esquerda
     def leftRotate(self, z):
         y = z.right
         T2 = y.left
@@ -107,7 +105,7 @@ class AVLTree(object):
                            self.getHeight(y.right))
         return y
 
-    # Function to perform right rotation
+    # Função para rotacionar à direita
     def rightRotate(self, z):
         y = z.left
         T3 = y.right
@@ -119,13 +117,13 @@ class AVLTree(object):
                            self.getHeight(y.right))
         return y
 
-    # Get the height of the node
+    # Encontra a altura do nó
     def getHeight(self, root):
         if not root:
             return 0
         return root.height
 
-    # Get balance factore of the node
+    # Encontra o fator de equilíbrio do nó
     def getBalance(self, root):
         if not root:
             return 0
@@ -136,14 +134,7 @@ class AVLTree(object):
             return root
         return self.getMinValueNode(root.left)
 
-    def preOrder(self, root):
-        if not root:
-            return
-        print("{0} ".format(root.key), end="")
-        self.preOrder(root.left)
-        self.preOrder(root.right)
-
-    # Print the tree
+    # Imprime a árvore
     def printHelper(self, currPtr, indent, last):
         if currPtr != None:
             sys.stdout.write(indent)
